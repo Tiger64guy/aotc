@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "discord.js": "^14.7.1"
+  },
+  "name": "aotc",
+  "version": "1.0.0",
+  "description": "Tiger64's Blood on the Clocktower Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tiger64",
+  "license": "ISC"
+}
