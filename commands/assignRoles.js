@@ -18,25 +18,20 @@ module.exports = {
         const playerRole = await guild.roles.fetch(playerRoleId);
 
         let count = 0;
-        const memberManager = guild.members;
-        // console.log(memberManager);
-        const memberList = await memberManager.list();
-        memberList.forEach((member, memberId, map) => {
-            if (member.voice.channel == channel) {
-                if(member.displayName.startsWith('(ST)')) {
-                    memberManager.addRole({
-                        user: member,
-                        role: stRole
-                    });
-                    count++;
-                }
-                else if(!member.displayName.startsWith('!')) {
-                    memberManager.addRole({
-                        user: member,
-                        role: playerRole
-                    });
-                    count++;
-                }
+        channel.members.forEach((member, memberId, map) => {
+            if(member.displayName.startsWith('(ST)')) {
+                guild.members.addRole({
+                    user: member,
+                    role: stRole
+                });
+                count++;
+            }
+            else if(!member.displayName.startsWith('!')) {
+                guild.members.addRole({
+                    user: member,
+                    role: playerRole
+                });
+                count++;
             }
         });
         interaction.followUp(`Successfully assigned roles to ${count} members.`);
