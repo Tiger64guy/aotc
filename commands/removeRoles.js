@@ -1,17 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
+const { stRoleId, playerRoleId } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('removeroles')
-        .setDescription('Remove game roles from all members.')
-        .addRoleOption(option =>
-            option
-                .setName('strole')
-                .setDescription('The role used for the storyteller(s).'))
-        .addRoleOption(option =>
-            option
-                .setName('playerrole')
-                .setDescription('The role used for players.')),
+        .setDescription('Remove game roles from all members.'),
     async execute(interaction) {
         await interaction.reply('Removing player roles...');
         const guild = interaction.guild;
@@ -20,8 +13,8 @@ module.exports = {
             return;
         }
 
-        const stRole = interaction.options.getRole('strole');
-        const playerRole = interaction.options.getRole('playerrole');
+        const stRole = await guild.roles.fetch(stRoleId);
+        const playerRole = await guild.roles.fetch(playerRoleId);
         if (!stRole && !playerRole) {
             interaction.followUp('Unable to remove roles - No roles specified');
             return;

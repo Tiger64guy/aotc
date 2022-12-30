@@ -1,25 +1,10 @@
-const { SlashCommandBuilder, ChannelType } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
+const { townSquareId, stRoleId, playerRoleId } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('assignroles')
-        .setDescription('Assigns game roles to all active players.')
-        .addChannelOption(option =>
-            option
-                .setName('channel')
-                .setDescription('The town square channel')
-                .addChannelTypes(ChannelType.GuildVoice)
-                .setRequired(true))
-        .addRoleOption(option => 
-            option
-                .setName('strole')
-                .setDescription('The role to use for the storyteller(s).')
-                .setRequired(true))
-        .addRoleOption(option =>
-            option
-                .setName('playerrole')
-                .setDescription('The role to use for players.')
-                .setRequired(true)),
+        .setDescription('Assigns game roles to all active players.'),
     async execute(interaction) {
         await interaction.reply('Assigning player roles...');
         const guild = interaction.guild;
@@ -28,9 +13,9 @@ module.exports = {
             return;
         }
 
-        const channel = interaction.options.getChannel('channel');
-        const stRole = interaction.options.getRole('strole');
-        const playerRole = interaction.options.getRole('playerrole');
+        const channel = await guild.channels.fetch(townSquareId);
+        const stRole = await guild.roles.fetch(stRoleId);
+        const playerRole = await guild.roles.fetch(playerRoleId);
 
         let count = 0;
         const memberManager = guild.members;
