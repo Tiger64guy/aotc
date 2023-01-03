@@ -1,10 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { townSquareId, stRoleId, playerRoleId } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('assignroles')
-        .setDescription('Assigns game roles to all active players.'),
+        .setDescription('Assigns game roles to all active players.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         await interaction.reply('Assigning player roles...');
         const guild = interaction.guild;

@@ -1,10 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { stRoleId, playerRoleId } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('removeroles')
-        .setDescription('Remove game roles from all members.'),
+        .setDescription('Remove game roles from all members.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         await interaction.reply('Removing player roles...');
         const guild = interaction.guild;

@@ -1,10 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { townSquareId, playerRoleId, stRoleId } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('return')
-        .setDescription('Move all active players to Town Square.'),
+        .setDescription('Move all active players to Town Square.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         await interaction.reply('Returning to town square...');
         const guild = interaction.guild;

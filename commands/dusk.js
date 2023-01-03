@@ -1,10 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { playerRoleId, stRoleId, nightCategoryId } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('dusk')
-        .setDescription('Move all active players into cottages.'),
+        .setDescription('Move all active players into cottages.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         await interaction.reply('Moving to cottages...');
         const guild = interaction.guild;
