@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('assignroles')
         .setDescription('Assigns game roles to all active players.')
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.PrioritySpeaker),
     async execute(interaction) {
         await interaction.reply('Assigning player roles...');
         const guild = interaction.guild;

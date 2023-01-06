@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('dusk')
         .setDescription('Move all active players into cottages.')
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.PrioritySpeaker),
     async execute(interaction) {
         await interaction.reply('Moving to cottages...');
         const guild = interaction.guild;

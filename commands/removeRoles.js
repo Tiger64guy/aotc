@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('removeroles')
         .setDescription('Remove game roles from all members.')
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator | PermissionFlagsBits.PrioritySpeaker),
     async execute(interaction) {
         await interaction.reply('Removing player roles...');
         const guild = interaction.guild;
