@@ -22,7 +22,7 @@ module.exports = {
         }
 
         const memberManager = guild.members;
-        const memberList = await memberManager.list();
+        const memberList = memberManager.cache;
         memberList.forEach((member, memberId, map) => {
             if(stRole) {
                 memberManager.removeRole({
