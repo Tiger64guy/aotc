@@ -16,15 +16,7 @@ module.exports = {
             return;
         }
 
-        const nightCategory = await guild.channels.fetch(nightCategoryId);
         const gameChannel = await guild.channels.fetch(gameChatId);
-        const playerRole = await guild.roles.fetch(playerRoleId);
-        const playerList = playerRole.members;
-        const cottageList = nightCategory.children.cache.randomKey(playerList.size);
-        for (let index = 0; index < playerList.size; index++) {
-            playerList.at(index).voice.setChannel(cottageList.at(index));
-        }
-
         const logo = new AttachmentBuilder('assets/logo.png');
         const embed = new EmbedBuilder()
             .setTitle('Dusk falls...')
@@ -34,6 +26,19 @@ module.exports = {
             .setFooter({ text: 'Sleep tight...' })
             .setTimestamp();
         gameChannel.send({ embeds: [embed], files: [logo] });
+
+        const nightCategory = await guild.channels.fetch(nightCategoryId);
+        const playerRole = await guild.roles.fetch(playerRoleId);
+        const stRole = await guild.roles.fetch(stRoleId);
+        const playerList = playerRole.members;
+        const stList = stRole.members;
+        const cottageList = nightCategory.children.cache.randomKey(playerList.size + 1);
+        for (let index = 0; index < playerList.size; index++) {
+            playerList.at(index).voice.setChannel(cottageList.at(index));
+        }
+        for (let sti = 0; sti < stList.size; sti++) {
+            stList.at(sti).voice.setChannel(cottageList.at(cottageList.length - 1));
+        }
         interaction.reply({ content: 'Successfully moved active players to cottages.', ephemeral: true });
     },
 };
