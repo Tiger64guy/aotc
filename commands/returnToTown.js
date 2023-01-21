@@ -41,6 +41,6 @@ module.exports = {
             member.voice.setChannel(townSquareId);
         });
 
-        interaction.reply('Successfully returned active players to Town Square.');
+        interaction.reply({ content: 'Successfully returned active players to Town Square.', ephemeral: true});
     },
 };
