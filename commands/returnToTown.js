@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits, AttachmentBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder, EmbedBuilder } = require('discord.js');
 const { commandsChannelId, townSquareId, playerRoleId, stRoleId, gameChatId } = require('../config.json');
 
 module.exports = {
