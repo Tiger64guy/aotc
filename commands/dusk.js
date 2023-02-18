@@ -34,10 +34,14 @@ module.exports = {
         const stList = stRole.members;
         const cottageList = nightCategory.children.cache.randomKey(playerList.size + 1);
         for (let index = 0; index < playerList.size; index++) {
-            playerList.at(index).voice.setChannel(cottageList.at(index));
+            if(playerList.at(index).voice.channel) {
+                playerList.at(index).voice.setChannel(cottageList.at(index));
+            }
         }
         for (let sti = 0; sti < stList.size; sti++) {
-            stList.at(sti).voice.setChannel(cottageList.at(cottageList.length - 1));
+            if(stList.at(sti).voice.channel) {
+                stList.at(sti).voice.setChannel(cottageList.at(cottageList.length - 1));
+            }
         }
         interaction.reply({ content: 'Successfully moved active players to cottages.', ephemeral: true });
     },

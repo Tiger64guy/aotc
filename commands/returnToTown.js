@@ -33,12 +33,16 @@ module.exports = {
 
         const playerRole = await guild.roles.fetch(playerRoleId);
         playerRole.members.forEach((member, memberId, map) => {
-            member.voice.setChannel(townSquareId);
+            if(member.voice.channel) {
+                member.voice.setChannel(townSquareId);
+            }
         });
 
         const stRole = await guild.roles.fetch(stRoleId);
         stRole.members.forEach((member, memberId, map) => {
-            member.voice.setChannel(townSquareId);
+            if(member.voice.channel) {
+                member.voice.setChannel(townSquareId);
+            }
         });
 
         interaction.reply({ content: 'Successfully returned active players to Town Square.', ephemeral: true});
