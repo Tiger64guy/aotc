@@ -33,16 +33,32 @@ module.exports = {
         const playerList = playerRole.members;
         const stList = stRole.members;
         const cottageList = nightCategory.children.cache.randomKey(playerList.size + 1);
+        const stuckList = [];
         for (let index = 0; index < playerList.size; index++) {
             if(playerList.at(index).voice.channel) {
                 playerList.at(index).voice.setChannel(cottageList.at(index));
+            }
+            else {
+                stuckList.push(guild.members.resolve(playerList.at(index)).displayName);
             }
         }
         for (let sti = 0; sti < stList.size; sti++) {
             if(stList.at(sti).voice.channel) {
                 stList.at(sti).voice.setChannel(cottageList.at(cottageList.length - 1));
             }
+            else {
+                stuckList.push(guild.members.resolve(playerList.at(index)).displayName);
+            }
         }
-        interaction.reply({ content: 'Successfully moved active players to cottages.', ephemeral: true });
+        if(stuckList.length > 0) {
+            let message = "Failed to move the following players (disconnected from voice chat):\n";
+            for(let str of stuckList) {
+                message += str + "\n"
+            }
+            interaction.reply({ content: message, ephemeral: true });
+        }
+        else {
+            interaction.reply({ content: 'Successfully moved active players to cottages.', ephemeral: true });
+        }
     },
 };

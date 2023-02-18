@@ -31,10 +31,15 @@ module.exports = {
             .setTimestamp();
         gameChannel.send({ embeds: [embed], files: [logo] });
 
+        let stuckList = [];
+
         const playerRole = await guild.roles.fetch(playerRoleId);
         playerRole.members.forEach((member, memberId, map) => {
             if(member.voice.channel) {
                 member.voice.setChannel(townSquareId);
+            }
+            else {
+                stuckList.push(member.displayName);
             }
         });
 
@@ -43,8 +48,20 @@ module.exports = {
             if(member.voice.channel) {
                 member.voice.setChannel(townSquareId);
             }
+            else {
+                stuckList.push(member.displayName);
+            }
         });
 
-        interaction.reply({ content: 'Successfully returned active players to Town Square.', ephemeral: true});
+        if(stuckList.length > 0) {
+            let message = "Failed to move the following players (disconnected from voice chat):\n";
+            for(let str of stuckList) {
+                message += str + "\n"
+            }
+            interaction.reply({ content: message, ephemeral: true });
+        }
+        else {
+            interaction.reply({ content: 'Successfully returned active players to Town Square.', ephemeral: true});
+        }
     },
 };
