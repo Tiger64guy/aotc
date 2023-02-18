@@ -29,20 +29,17 @@ module.exports = {
         const gameChannel = await guild.channels.fetch(gameChatId);
 
         const memberManager = guild.members;
-        const memberList = memberManager.cache;
-        memberList.forEach((member, memberId, map) => {
-            if(stRole) {
-                memberManager.removeRole({
-                    user: member,
-                    role: stRole
-                });
-            }
-            if(playerRole) {
-                memberManager.removeRole({
-                    user: member,
-                    role: playerRole
-                });
-            }
+        playerRole.members.forEach((member, memberId, map) => {
+            memberManager.removeRole({
+                user: member,
+                role: playerRole
+            });
+        });
+        stRole.members.forEach((member, memberId, map) => {
+            memberManager.removeRole({
+                user: member,
+                role: stRole
+            });
         });
 
         const goodWin = interaction.options.getBoolean('goodwin') ?? null;
