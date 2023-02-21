@@ -19,7 +19,7 @@ module.exports = {
             interaction.reply({ content: 'Unable to return to Town Square - This command must be run in the commands channel', ephemeral: true });
             return;
         }
-        
+
         const gameChannel = await guild.channels.fetch(gameChatId);
         const isDragon = interaction.options.getBoolean('dragon') ?? false;
         const logo = new AttachmentBuilder('assets/logo.png');
@@ -31,11 +31,11 @@ module.exports = {
             .setTimestamp();
         gameChannel.send({ embeds: [embed], files: [logo] });
 
-        let stuckList = [];
+        const stuckList = [];
 
         const playerRole = await guild.roles.fetch(playerRoleId);
-        playerRole.members.forEach((member, memberId, map) => {
-            if(member.voice.channel) {
+        playerRole.members.forEach((member, _memberId, _map) => {
+            if (member.voice.channel) {
                 member.voice.setChannel(townSquareId);
             }
             else {
@@ -44,8 +44,8 @@ module.exports = {
         });
 
         const stRole = await guild.roles.fetch(stRoleId);
-        stRole.members.forEach((member, memberId, map) => {
-            if(member.voice.channel) {
+        stRole.members.forEach((member, _memberId, _map) => {
+            if (member.voice.channel) {
                 member.voice.setChannel(townSquareId);
             }
             else {
@@ -53,15 +53,15 @@ module.exports = {
             }
         });
 
-        if(stuckList.length > 0) {
-            let message = "Failed to move the following players (disconnected from voice chat):\n";
-            for(let str of stuckList) {
-                message += str + "\n"
+        if (stuckList.length > 0) {
+            let message = 'Failed to move the following players (disconnected from voice chat):\n';
+            for (const str of stuckList) {
+                message += str + '\n';
             }
             interaction.reply({ content: message, ephemeral: true });
         }
         else {
-            interaction.reply({ content: 'Successfully returned active players to Town Square.', ephemeral: true});
+            interaction.reply({ content: 'Successfully returned active players to Town Square.', ephemeral: true });
         }
     },
 };

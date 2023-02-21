@@ -29,16 +29,16 @@ module.exports = {
         const gameChannel = await guild.channels.fetch(gameChatId);
 
         const memberManager = guild.members;
-        playerRole.members.forEach((member, memberId, map) => {
+        playerRole.members.forEach((member, _memberId, _map) => {
             memberManager.removeRole({
                 user: member,
-                role: playerRole
+                role: playerRole,
             });
         });
-        stRole.members.forEach((member, memberId, map) => {
+        stRole.members.forEach((member, _memberId, _map) => {
             memberManager.removeRole({
                 user: member,
-                role: stRole
+                role: stRole,
             });
         });
 

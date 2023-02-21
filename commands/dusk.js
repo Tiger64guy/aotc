@@ -35,7 +35,7 @@ module.exports = {
         const cottageList = nightCategory.children.cache.randomKey(playerList.size + 1);
         const stuckList = [];
         for (let index = 0; index < playerList.size; index++) {
-            if(playerList.at(index).voice.channel) {
+            if (playerList.at(index).voice.channel) {
                 playerList.at(index).voice.setChannel(cottageList.at(index));
             }
             else {
@@ -43,17 +43,17 @@ module.exports = {
             }
         }
         for (let sti = 0; sti < stList.size; sti++) {
-            if(stList.at(sti).voice.channel) {
+            if (stList.at(sti).voice.channel) {
                 stList.at(sti).voice.setChannel(cottageList.at(cottageList.length - 1));
             }
             else {
-                stuckList.push(guild.members.resolve(playerList.at(index)).displayName);
+                stuckList.push(guild.members.resolve(playerList.at(sti)).displayName);
             }
         }
-        if(stuckList.length > 0) {
-            let message = "Failed to move the following players (disconnected from voice chat):\n";
-            for(let str of stuckList) {
-                message += str + "\n"
+        if (stuckList.length > 0) {
+            let message = 'Failed to move the following players (disconnected from voice chat):\n';
+            for (const str of stuckList) {
+                message += str + '\n';
             }
             interaction.reply({ content: message, ephemeral: true });
         }
