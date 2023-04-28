@@ -21,7 +21,7 @@ module.exports = {
             return;
         }
 
-        const user = interaction.option.getMember('user');
+        const user = interaction.options.getMember('user');
         if (!user.roles.cache.has(playerRoleId)) {
             interaction.reply({ content: 'Unable to spotlight player - Member is not in the current game', ephemeral: true });
             return;
